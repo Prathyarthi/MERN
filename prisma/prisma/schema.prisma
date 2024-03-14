@@ -11,16 +11,18 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  firstname  String?
-  password String
+  id        Int     @id @default(autoincrement())
+  email     String  @unique
+  firstname String?
+  password  String
+  todos      Todo[]
 }
 
 model Todo {
-  id Int @id @default(autoincrement())
-  title String
-  done Boolean
+  id          Int     @id @default(autoincrement())
+  title       String
+  done        Boolean
   description String?
-  userId Int
+  userId      Int
+  user        User    @relation(fields: [userId], references: [id])
 }
