@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import axios from "axios";
+import { useRouter } from 'next/navigation'
 
 export function Signup() {
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const router = useRouter()
     return (
         <div className="h-screen flex justify-center items-center bg-black">
             <div className="flex flex-col m-2 p-5 rounded gap-3 justify-center items-center border">
@@ -22,6 +24,7 @@ export function Signup() {
                         email,
                         password
                     })
+                    router.push("/")
                 }}>Signup!</button>
             </div>
         </div>
