@@ -1,7 +1,9 @@
 import { Client } from "pg";
+import { config } from 'dotenv'
+config()
 
 const client = new Client({
-    connectionString: ""
+    connectionString: process.env.POSTGRES_URI
 })
 
 
