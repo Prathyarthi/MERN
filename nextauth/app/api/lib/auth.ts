@@ -1,4 +1,6 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
+import GithubProvider from 'next-auth/providers/github';
+import GoogleProvider from 'next-auth/providers/google';
 
 export const Next_Auth = {
     providers: [
@@ -16,6 +18,14 @@ export const Next_Auth = {
                     email: "user1@gmail.com",
                 };
             },
+        }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID || "",
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+        }),
+        GithubProvider({
+            clientId: process.env.GITHUB_ID || "",
+            clientSecret: process.env.GITHUB_SECRET || "",
         })
     ],
     secret: process.env.NEXTAUTH_SECRET,
@@ -27,6 +37,9 @@ export const Next_Auth = {
         session: ({ session, token, user }: any) => {
             session.user.id = token.sub
             return session
-        }
+        },
+    },
+    pages: {
+        signIn: '/signin'
     }
 }
