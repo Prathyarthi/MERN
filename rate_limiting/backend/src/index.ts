@@ -29,7 +29,7 @@ app.post('/reset-password', (req, res) => {
   }
   if (otpStore[email] === otp) {
     console.log(`Password for ${email} has been reset to: ${newPassword}`);
-    delete otpStore[email]; // Clear the OTP after use
+    delete otpStore[email];
     res.status(200).json({ message: "Password has been reset successfully" });
   } else {
     res.status(401).json({ message: "Invalid OTP" });
