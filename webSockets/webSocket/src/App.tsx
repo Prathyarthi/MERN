@@ -4,19 +4,20 @@ import './App.css'
 function App() {
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [message, setMessage] = useState<string>('');
+  const [newMessage, setNewMessage] = useState<string>('');
 
   useEffect(() => {
-    const newSocket = new WebSocket('ws://localhost:8080');
-    newSocket.onopen = () => {
+    const socket = new WebSocket('ws://localhost:8080');
+    socket.onopen = () => {
       console.log('Connection established');
-      newSocket.send('Hello Server!');
+      socket.send('Hello Server!');
       setSocket(socket);
     }
-    newSocket.onmessage = (message) => {
+    socket.onmessage = (message) => {
       console.log('Message received:', message.data);
       setMessage(message.data);
     }
-    return () => newSocket.close();
+    return () => socket.close();
   }, [])
 
   if (!socket) {
@@ -25,6 +26,11 @@ function App() {
 
   return (
     <>
+      <input type="text" value={newMessage} onChange={(e) => setNewMessage(e.target.value)} />
+      <button onClick={() => {
+        socket.send(newMessage);
+        setNewMessage('');
+      }}>Send</button>
       {message}
     </>
   )
